@@ -1,0 +1,58 @@
+class ProgramStudi:
+    def __init__(self, kode, ketua):
+        # Atribut Public
+        self.kode = kode
+
+        # Atribut Protected (dinyatakan dengan satu underscore)
+        self._ketua = ketua
+
+        # Atribut Private (dinyatakan dengan dua underscore)
+        self.__anggaran = 50000000
+
+    # Getter protected
+    def get_ketua(self):
+        return self._ketua
+
+    # Setter protected
+    def set_ketua(self, nama_baru):
+        if not nama_baru:
+            raise ValueError("Nama ketua tidak boleh kosong.")
+        self._ketua = nama_baru
+
+    # Getter private (wajib karena __anggaran private)
+    def get_anggaran(self):
+        return self.__anggaran
+
+    # Setter private
+    def set_anggaran(self, nilai):
+        if nilai < 0:
+            raise ValueError("Anggaran tidak boleh negatif.")
+        self.__anggaran = nilai
+
+    def kurangi_anggaran(self, jumlah):
+        if jumlah < 0:
+            raise ValueError("Jumlah harus positif.")
+        
+        if jumlah > self.__anggaran:
+            raise ValueError("Anggaran tidak mencukupi.")
+            
+        self.__anggaran -= jumlah
+        return self.__anggaran
+
+# Contoh penggunaan
+if __name__ == "__main__":
+    ps = ProgramStudi("TI", "Pak Wayan")
+
+    print("--- Data Program Studi Awal ---")
+    print("Kode:", ps.kode)
+    print("Ketua Prodi:", ps.get_ketua())
+    print("Anggaran:", ps.get_anggaran())
+
+    print("\n--- Modifikasi Data ---")
+    # Mengubah ketua menggunakan setter
+    ps.set_ketua("Bu Diah")
+    print("Ketua Prodi (baru):", ps.get_ketua())
+
+    # Mengurangi anggaran menggunakan method
+    ps.kurangi_anggaran(10000000)
+    print("Anggaran Tersisa:", ps.get_anggaran())
